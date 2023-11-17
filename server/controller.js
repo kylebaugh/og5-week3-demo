@@ -53,6 +53,20 @@ const handlerFunctions = {
             }
         }
         res.send(drinks)
+    },
+
+    updateDrink: (req, res) => {
+        const index = drinks.findIndex((el) => el.id === +req.params.id)
+
+        const {type} = req.body
+
+        if(type === 'upvote'){
+            drinks[index].votes++
+        }else if(type === 'downvote'){
+            drinks[index].votes--
+        }
+
+        res.send(drinks)
     }
 
 }

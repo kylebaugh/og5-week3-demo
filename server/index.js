@@ -25,7 +25,7 @@ app.use(session({
 
 // ROUTES GO HERE
 
-const {sayHello, allDrinks, oneDrink, addDrink, deleteDrink} = handlerFunctions
+const {sayHello, allDrinks, oneDrink, addDrink, deleteDrink, updateDrink} = handlerFunctions
 
 app.get('/hello', sayHello)
 
@@ -36,6 +36,8 @@ app.get('/oneDrink/:index', oneDrink)
 app.post('/drink', addDrink)
 
 app.delete('/drink/:id', deleteDrink)
+
+app.put('/drink/:id', updateDrink)
 
 
 

@@ -8,24 +8,23 @@ const drinkForm = document.querySelector('form')
 const createDrinkCard = (drinkObject) => {
 
     const newDrinkCard = document.createElement('section')
+    newDrinkCard.className = 'drink-card'
 
     newDrinkCard.innerHTML = `
         <img src=${drinkObject.picture} alt='drink picture'/>
         <p>${drinkObject.name}</p>
 
         <section>
-            <button>-</button>
+            <button onclick="updateDrink(${drinkObject.id}, 'downvote')">-</button>
             Popularity: ${drinkObject.votes}
-            <button>+</button>
+            <button onclick="updateDrink(${drinkObject.id}, 'upvote')">+</button>
         </section>
 
         <br/>
-        <br/>
-
         <button onclick="deleteDrink(${drinkObject.id})" >Delete Me</button>
+        <br/>
 
-        <br/>
-        <br/>
+
     `
     drinkDisplay.appendChild(newDrinkCard)
 }
@@ -79,7 +78,30 @@ const deleteDrink = (id) => {
             drinkDisplay.innerHTML = ''
             displayAllDrinks(res.data)
         })
+        .catch((theseHands) => {
+            console.log(theseHands)
+        })
 }
+
+
+const updateDrink = (id, type) => {
+
+    let bodyObj = {
+        type: type
+    }
+
+    axios.put(`${baseUrl}/drink/${id}`, bodyObj)
+        .then((res) => {
+            console.log(res.data)
+            drinkDisplay.innerHTML = ''
+            displayAllDrinks(res.data)
+        })
+        .catch((theseHands) => {
+            console.log(theseHands)
+        })
+}
+
+
 
 drinkForm.addEventListener('submit', handleSubmit)
 
